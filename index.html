@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Filter List</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <ul id="nav-menu">
+        <li id="menu-registration">Registration</li>
+        <li id="menu-administration">Administration</li>
+        <li id="menu-contact">Contact</li>
+    </ul>
+  </header>
+
+  <div class="form-container">
+    <div>
+      <div class="section-title">Personal Details</div>
+
+      <input type="text" id="firstName" placeholder="First Name">
+      <input type="text" id="lastName" placeholder="Surname">
+      <input type="text" id="phone" placeholder="Phone Number">
+      <input type="email" id="email" placeholder="Email">
+    </div>
+
+    <div>
+      <label for="batch">Batch/Year - Your last attendance</label>
+      <select id="batch"></select>
+
+      <input type="text" id="class-section" placeholder="Section">
+    </div>
+
+    <button class="submit-btn">Submit</button>
+    <div id="submit-message" style="color: green; margin-top: 8px; font-weight: bold; display: none;"></div>
+  </div>
+
+ <div id="admin-section" style="display:none;">
+  <h2>Members List</h2>
+  <button id="downloadCSV">Download CSV</button>
+  <table id="registrationTable">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Surname</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Batch</th>
+        <th>Section</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+  <!-- ONLY THIS SCRIPT TAG - your JS logic is in array.js -->
+  <script src="array.js"></script>
+</body>
+</html>

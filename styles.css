@@ -1,0 +1,208 @@
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: rgba(198, 222, 241, 0.577);
+      min-height: 100vh;
+    }
+
+    header {
+        background-color: #0b2531b9;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.326);
+    }
+
+    #nav-menu {
+        display: flex;
+        /* gap: 50px; */
+    }
+
+    #nav-menu li {
+        padding: 20px 20px;
+        letter-spacing: 0.8px;
+        font-family: Roboto;
+        list-style-type: none;
+        color: white;
+        cursor: pointer;
+        transition: .3s ease-in-out
+    }
+
+    #nav-menu li:hover {
+        /* color:#2a6f92; */
+        background-color:rgba(95, 158, 160, 0.411);
+    }
+
+    #admin-section {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .main-title {
+        font-family: Montserrat;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 60px;
+        margin-bottom: 30px;
+        color: white;
+    }
+
+    select, option { 
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .form-container {
+      margin: 80px auto;  
+      background: rgba(255, 255, 255, 0.523);
+      backdrop-filter: blur(20px);
+      padding: 35px;
+      border-radius: 5px;
+      width: 500px;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.181);
+    }
+
+    .form-container h2 {
+      color: #000000;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      color: #000000cb;
+      font-family: Outfit;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin: 20px 0 20px;
+    }
+/* 
+    label {
+      color: #000000;
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 700;
+    } */
+
+    label[for="section"] {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    label[for="batch"] {
+        display: block;
+        color: #000000cb;
+        font-family: Outfit;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    #class-section {
+        margin-top: 20px;
+        color: #34343469;
+        font-family: Roboto;
+    }
+
+
+
+    input {
+       font-family: Roboto;
+       font-weight: 700;
+    font-size: 1rem;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #4a638b5c;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #000000ca;
+      outline: none;
+      transition: .2s ease-in-out;
+    }
+
+    input::placeholder {
+      color: #34343497;
+      font-family: Roboto;
+      font-weight: 400;
+      
+    }
+
+    input:focus {
+        outline: 5px solid #4c376c68;
+    }
+
+    .submit-btn {
+      margin-top: 20px;  
+      width: 100%;
+      background:#1a6be5;
+      color: white;
+      border: none;
+      padding: 20px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .submit-btn:hover {
+      background: #164d9f;
+    }
+
+
+
+    .table-container {
+    margin: 50px;
+    font-family: 'Outfit', sans-serif;
+}
+
+table {
+    width: 90%;
+    padding: 0 40px;
+    border-collapse: collapse;
+    margin: 20px auto
+}
+
+th, td {
+    border: 1px solid #3736364a;
+    padding: 12px;
+    text-align: center;
+    
+}
+
+th {
+    background-color: #4a638b;
+    color: white;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #6161611e;
+    
+}
+
+tr:hover {
+    transition: .3s ease-in-out;
+    background-color: #f8c65b;
+}
+
+#downloadCSV {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px 16px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+}
+
+#downloadCSV:hover {
+    background-color: #0056b3;
+}
