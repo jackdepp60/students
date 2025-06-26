@@ -12,7 +12,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<!-- <script>
+  const firebaseConfig = {
+     apiKey: "AIzaSyD-oWg6cdQUPzER63z9vXz6KZ8WYskdCRA",
+  authDomain: "balulang-elem-school.firebaseapp.com",
+  projectId: "balulang-elem-school",
+  storageBucket: "balulang-elem-school.firebasestorage.app",
+  messagingSenderId: "819896543291",
+  appId: "1:819896543291:web:e51d478d74935a84acd41e"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script> -->
+
+
 </head>
+
 <body>
   <header>
     <ul id="nav-menu">
@@ -21,6 +40,20 @@
         <li id="menu-contact">Contact</li>
     </ul>
   </header>
+
+<!-- ===== Login Modal ===== -->
+<div id="loginModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h2>Admin Login</h2>
+    <input type="email" id="username" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password">
+    <br>
+    <button id="loginBtn">Login</button>
+    <button id="closeLogin">Cancel</button>
+    <p id="loginError" style="display: none;">Invalid credentials!</p>
+  </div>
+</div>
+
 
   <div class="form-container">
     <div>
@@ -63,6 +96,8 @@
 </div>
 
   <!-- ONLY THIS SCRIPT TAG - your JS logic is in array.js -->
+  
+  
   <script src="array.js"></script>
 </body>
 </html>

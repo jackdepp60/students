@@ -206,3 +206,76 @@ tr:hover {
 #downloadCSV:hover {
     background-color: #0056b3;
 }
+
+/* Log in to admin */
+
+/* ================= LOGIN MODAL ================= */
+.modal {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-family: 'Outfit', sans-serif;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(74, 99, 139, 0.4);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  font-family: Roboto;
+  color: #000000cb;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s ease-in-out;
+}
+
+.modal-content input:focus {
+  outline: 3px solid rgba(76, 55, 108, 0.3);
+}
+
+.modal-content button {
+  background-color: #1a6be5;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
+  transition: background 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #164d9f;
+}
+
+#loginError {
+  margin-top: 10px;
+  color: red;
+  font-size: 0.9rem;
+}
