@@ -36,10 +36,10 @@ const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const loginError = document.getElementById("loginError");
 
-// ======= Details Modal Elements (for showing full info on small screens) =======
-let detailsModal, detailsModalContent, closeDetailsBtn;
+// ======= Details Modal Elements =======
+let detailsModal, detailsModalContent;
+let isEditing = false;
 
-// Create details modal dynamically (if needed)
 function createDetailsModal() {
   detailsModal = document.getElementById("detailsModal");
   detailsModalContent = document.getElementById("detailsContent");
@@ -53,14 +53,11 @@ logoutBtn.className = "logoutbtn";
 logoutBtn.style.cssText =
   "background-color:#e53935;color:white;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-family:Roboto;display:none";
 logoutBtn.addEventListener("click", () => {
-  firebase
-    .auth()
-    .signOut()
-    .then(() => {
-      alert("Logged out successfully");
-      showRegistration();
-      logoutBtn.style.display = "none";
-    });
+  firebase.auth().signOut().then(() => {
+    alert("Logged out successfully");
+    showRegistration();
+    logoutBtn.style.display = "none";
+  });
 });
 header.insertBefore(logoutBtn, header.lastChild);
 
@@ -113,9 +110,7 @@ loginBtn.addEventListener("click", () => {
   const email = usernameInput.value.trim();
   const password = passwordInput.value.trim();
 
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
+  firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
       loginModal.style.display = "none";
       loginError.style.display = "none";
@@ -127,6 +122,7 @@ loginBtn.addEventListener("click", () => {
       loginError.style.display = "block";
     });
 });
+
 closeLogin.addEventListener("click", () => {
   loginModal.style.display = "none";
   loginError.style.display = "none";
@@ -134,18 +130,17 @@ closeLogin.addEventListener("click", () => {
   passwordInput.value = "";
 });
 
-// ======= Phone input filter: allow only digits =======
+// ======= Phone input filter =======
 phone.addEventListener("input", () => {
   phone.value = phone.value.replace(/\D/g, "");
 });
 
-// ======= Submit Registration with validation =======
+// ======= Submit Registration =======
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Native form validity check
   if (!form.checkValidity()) {
-    alert("Please fill out all fields with valid values, including a proper email.");
+    alert("Please fill out all fields with valid values.");
     return;
   }
 
@@ -159,14 +154,12 @@ form.addEventListener("submit", (e) => {
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   };
 
-  // Extra check for empty strings after trimming
   if (Object.values(formData).some((val) => !val)) {
     alert("Please fill in all fields.");
     return;
   }
 
-  db.collection("registrations")
-    .add(formData)
+  db.collection("registrations").add(formData)
     .then(() => {
       clearForm();
       submitMessage.textContent = "Submitted successfully!";
@@ -186,17 +179,12 @@ form.addEventListener("submit", (e) => {
 function loadRegistrations() {
   tableBody.innerHTML = "";
 
-  db.collection("registrations")
-    .orderBy("timestamp", "desc")
-    .get()
+  db.collection("registrations").orderBy("timestamp", "desc").get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
         const data = doc.data();
 
-        // Create row
         const row = document.createElement("tr");
-
-        // Responsive: hide some columns on small screens by adding 'hide-on-mobile' class
         row.innerHTML = `
           <td>${escapeHTML(data.firstName)}</td>
           <td>${escapeHTML(data.lastName)}</td>
@@ -210,18 +198,16 @@ function loadRegistrations() {
           </td>
         `;
 
-        // Clicking row on small screen shows details modal (except if click on buttons)
         row.addEventListener("click", (e) => {
-          if (e.target.tagName.toLowerCase() === "button") return; // ignore if clicked a button
+          if (e.target.tagName.toLowerCase() === "button") return;
+          if (isEditing) return;
           showDetailsModal(data, doc.id);
         });
 
-        // Edit button
         row.querySelector(".edit-btn").addEventListener("click", () => {
           startEditingRow(row, doc.id, data);
         });
 
-        // Delete button
         row.querySelector(".delete-btn").addEventListener("click", () => {
           deleteEntry(doc.id);
         });
@@ -231,7 +217,7 @@ function loadRegistrations() {
     });
 }
 
-// ======= Show Details Modal (small screens) =======
+// ======= Show Details Modal =======
 function showDetailsModal(data, docId) {
   detailsModalContent.innerHTML = `
     <p><strong>First Name:</strong> ${escapeHTML(data.firstName)}</p>
@@ -244,7 +230,6 @@ function showDetailsModal(data, docId) {
   detailsModal.style.display = "block";
 }
 
-// Close details modal function (for your close button)
 function closeDetails() {
   detailsModal.style.display = "none";
 }
@@ -252,9 +237,7 @@ function closeDetails() {
 // ======= Delete Entry =======
 function deleteEntry(docId) {
   if (confirm("Are you sure you want to delete this entry?")) {
-    db.collection("registrations")
-      .doc(docId)
-      .delete()
+    db.collection("registrations").doc(docId).delete()
       .then(() => {
         alert("Deleted successfully");
         loadRegistrations();
@@ -265,8 +248,10 @@ function deleteEntry(docId) {
   }
 }
 
-// ======= Start Editing Row Inline =======
+// ======= Start Editing Row =======
 function startEditingRow(row, docId, data) {
+  isEditing = true;
+
   row.innerHTML = `
     <td><input type="text" class="edit-firstName" value="${escapeHTML(data.firstName)}" /></td>
     <td><input type="text" class="edit-lastName" value="${escapeHTML(data.lastName)}" /></td>
@@ -282,7 +267,6 @@ function startEditingRow(row, docId, data) {
     </td>
   `;
 
-  // Populate batch select dropdown with years
   const batchSelect = row.querySelector(".edit-batch");
   for (let year = currentYear; year >= 1930; year--) {
     const option = document.createElement("option");
@@ -292,13 +276,11 @@ function startEditingRow(row, docId, data) {
     batchSelect.appendChild(option);
   }
 
-  // Restrict edit-phone input to digits only
   const editPhoneInput = row.querySelector(".edit-phone");
   editPhoneInput.addEventListener("input", () => {
     editPhoneInput.value = editPhoneInput.value.replace(/\D/g, "");
   });
 
-  // Save button
   row.querySelector(".save-btn").addEventListener("click", () => {
     const updatedData = {
       firstName: row.querySelector(".edit-firstName").value.trim(),
@@ -309,7 +291,6 @@ function startEditingRow(row, docId, data) {
       section: row.querySelector(".edit-section").value.trim(),
     };
 
-    // Basic email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(updatedData.email)) {
       alert("Please enter a valid email address.");
@@ -321,11 +302,10 @@ function startEditingRow(row, docId, data) {
       return;
     }
 
-    db.collection("registrations")
-      .doc(docId)
-      .update(updatedData)
+    db.collection("registrations").doc(docId).update(updatedData)
       .then(() => {
         alert("Updated successfully!");
+        isEditing = false;
         loadRegistrations();
       })
       .catch((err) => {
@@ -333,8 +313,8 @@ function startEditingRow(row, docId, data) {
       });
   });
 
-  // Cancel button
   row.querySelector(".cancel-btn").addEventListener("click", () => {
+    isEditing = false;
     loadRegistrations();
   });
 }
@@ -369,7 +349,7 @@ downloadCSVBtn.addEventListener("click", () => {
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-        link.setAttribute("href", url);
+    link.setAttribute("href", url);
     link.setAttribute("download", "registrations.csv");
     document.body.appendChild(link);
     link.click();
