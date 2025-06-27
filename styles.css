@@ -10,36 +10,52 @@ h2 {
     font-family: Outfit;
 }
 
+
+
+
+
 /* Header and navigation menu */
 header {
-        height: 60px;
-        background-color: #0b2531b9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.326);
-    }
-    #nav-menu {
-        margin: 0;
-        display: flex;
-        /* gap: 50px; */
-    }
+    height: 60px;
+    background-color: #0b2531b9;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.326);
+}
 
-    #nav-menu li {
-        margin: 0;
-        padding: 20px 20px;
-        letter-spacing: 0.8px;
-        font-family: Roboto;
-        list-style-type: none;
-        color: white;
-        cursor: pointer;
-        transition: .3s ease-in-out
-    }
+.logo {
+    height: q0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    #nav-menu li:hover {
-        /* color:#2a6f92; */
-        background-color:rgba(95, 158, 160, 0.411);
-    }
+.logo img{padding-top: 20px;
+    align-self: center;
+    width: 250px;
+    object-fit: cover;
+}
+
+#nav-menu {
+    margin: 0;
+    display: flex;
+}
+
+#nav-menu li {
+    margin: 0;
+    padding: 20px 20px;
+    letter-spacing: 0.8px;
+    font-family: Roboto;
+    list-style-type: none;
+    color: white;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+#nav-menu li:hover {
+    background-color: rgba(95, 158, 160, 0.411);
+}
 
 input::placeholder {
       color: #34343497;
@@ -58,7 +74,6 @@ label[for="batch"] {
     font-weight: 700;
     color: #333;  /* Slightly bigger */
 }
-
 
 
 .logoutbtn:hover {
@@ -154,7 +169,7 @@ label[for="batch"] {
 
 /* Admin section */
 #admin-section {
-    margin: 70px auto;
+    margin: 100px auto;
     /* transform: translateY(-80%); */
   background: white;
   padding: 20px;
@@ -223,6 +238,7 @@ label[for="batch"] {
   #registrationTable td 
   /* Make the table scrollable horizontally */
   #admin-section {
+    width: 600px;
     overflow-x: auto;
   }
 
@@ -338,8 +354,6 @@ label[for="batch"] {
 }
 
 .logoutbtn {
-    position: relative;
-    left: 200px;
     transition: .3s ease;
 }
 
