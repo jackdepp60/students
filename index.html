@@ -1,103 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Age Filter List</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<!-- <script>
-  const firebaseConfig = {
-     apiKey: "AIzaSyD-oWg6cdQUPzER63z9vXz6KZ8WYskdCRA",
-  authDomain: "balulang-elem-school.firebaseapp.com",
-  projectId: "balulang-elem-school",
-  storageBucket: "balulang-elem-school.firebasestorage.app",
-  messagingSenderId: "819896543291",
-  appId: "1:819896543291:web:e51d478d74935a84acd41e"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script> -->
-
-
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 
 <body>
   <header>
     <ul id="nav-menu">
-        <li id="menu-registration">Registration</li>
-        <li id="menu-administration">Administration</li>
-        <li id="menu-contact">Contact</li>
+      <li id="menu-registration">Registration</li>
+      <li id="menu-administration">Administration</li>
+      <li id="menu-contact" onClick="contact()">Contact</li>
     </ul>
   </header>
 
-<!-- ===== Login Modal ===== -->
-<div id="loginModal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <h2>Admin Login</h2>
-    <input type="email" id="username" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password">
-    <br>
-    <button id="loginBtn">Login</button>
-    <button id="closeLogin">Cancel</button>
-    <p id="loginError" style="display: none;">Invalid credentials!</p>
+  <!-- ===== Login Modal ===== -->
+  <div id="loginModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Admin Login</h2>
+      <input type="email" id="username" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <br />
+      <button id="loginBtn">Login</button>
+      <button id="closeLogin">Cancel</button>
+      <p id="loginError" style="display: none; color: red;">Invalid credentials!</p>
+    </div>
   </div>
-</div>
-
 
   <div class="form-container">
-    <div>
-      <div class="section-title">Personal Details</div>
+    <form id="registrationForm" novalidate>
+      <div>
+        <div class="section-title">Personal Details</div>
 
-      <input type="text" id="firstName" placeholder="First Name">
-      <input type="text" id="lastName" placeholder="Surname">
-      <input type="text" id="phone" placeholder="Phone Number">
-      <input type="email" id="email" placeholder="Email">
-    </div>
+        <input
+          type="text"
+          id="firstName"
+          placeholder="First Name"
+          required
+          autocomplete="given-name"
+        />
+        <input
+          type="text"
+          id="lastName"
+          placeholder="Surname"
+          required
+          autocomplete="family-name"
+        />
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Phone Number"
+          pattern="[0-9]+"
+          inputmode="numeric"
+          required
+          autocomplete="tel"
+        />
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          required
+          autocomplete="email"
+        />
+      </div>
 
-    <div>
-      <label for="batch">Batch/Year - Your last attendance</label>
-      <select id="batch"></select>
+      <div>
+        <label for="batch">Batch/Year - Your last attendance</label>
+        <select id="batch" required></select>
 
-      <input type="text" id="class-section" placeholder="Section">
-    </div>
+        <input type="text" id="class-section" placeholder="Section" required />
+      </div>
 
-    <button class="submit-btn">Submit</button>
-    <div id="submit-message" style="color: green; margin-top: 8px; font-weight: bold; display: none;"></div>
+      <button type="submit" class="submit-btn">Submit</button>
+      <div
+        id="submit-message"
+        style="color: green; margin-top: 8px; font-weight: bold; display: none;"
+      ></div>
+    </form>
   </div>
 
- <div id="admin-section" style="display:none;">
-  <h2>Members List</h2>
-  <button id="downloadCSV">Download CSV</button>
-  <table id="registrationTable">
-    <thead>
-      <tr>
-        <th>First Name</th>
-        <th>Surname</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Batch</th>
-        <th>Section</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+  <div id="admin-section" style="display: none;">
+    <h2>Alumnus List</h2>
+    <button id="downloadCSV">Download CSV</button>
+    <table id="registrationTable">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th class="hide-on-mobile">Phone</th>
+          <th class="hide-on-mobile">Email</th>
+          <th class="hide-on-mobile">Batch</th>
+          <th class="hide-on-mobile">Section</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-  <!-- ONLY THIS SCRIPT TAG - your JS logic is in array.js -->
-  
-  
+  <div id="detailsModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Registration Details</h2>
+      <p id="detailsContent"></p>
+      <button onclick="closeDetails()">Close</button>
+    </div>
+  </div>
+
   <script src="array.js"></script>
 </body>
 </html>
