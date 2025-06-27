@@ -56,6 +56,7 @@ logoutBtn.addEventListener("click", () => {
   firebase.auth().signOut().then(() => {
     alert("Logged out successfully");
     showRegistration();
+    setActiveMenu("menu-registration");
     logoutBtn.style.display = "none";
   });
 });
@@ -81,29 +82,44 @@ function showAdministration() {
   logoutBtn.style.display = "inline-block";
 }
 
-// ======= Auth State =======
+// ======= Active Menu Handling =======
+function setActiveMenu(menuId) {
+  document.querySelectorAll("#nav-menu li").forEach(li => {
+    li.classList.remove("active");
+  });
+  const activeMenu = document.getElementById(menuId);
+  if (activeMenu) activeMenu.classList.add("active");
+}
+
+// ======= Auth State Listener =======
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     loginModal.style.display = "none";
     loginError.style.display = "none";
     showAdministration();
+    setActiveMenu("menu-administration");
     loadRegistrations();
   } else {
     showRegistration();
+    setActiveMenu("menu-registration");
     logoutBtn.style.display = "none";
   }
 });
 
-// ======= Menu Click =======
+// ======= Menu Click Handlers =======
 menuAdministration.addEventListener("click", () => {
   const user = firebase.auth().currentUser;
   if (user) {
+    setActiveMenu("menu-administration");
     showAdministration();
   } else {
     loginModal.style.display = "flex";
   }
 });
-menuRegistration.addEventListener("click", showRegistration);
+menuRegistration.addEventListener("click", () => {
+  setActiveMenu("menu-registration");
+  showRegistration();
+});
 
 // ======= Login =======
 loginBtn.addEventListener("click", () => {

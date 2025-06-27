@@ -53,6 +53,22 @@ header {
     transition: .3s ease-in-out;
 }
 
+#nav-menu li.active {
+  background-color: rgba(95, 158, 160, 0.411);       /* text color grey */
+  pointer-events: none;  /* disables clicking */
+  /* opacity: 0.6;       */
+  cursor: default;   /* normal arrow cursor */
+}
+
+#nav-menu li.active > a{
+    color: rgb(255, 251, 251);       /* text color grey */
+  pointer-events: none;  /* disables clicking */
+  /* opacity: 0.6;    */
+  cursor: default;   /* normal arrow cursor */
+}
+
+
+
 #nav-menu li:hover {
     background-color: rgba(95, 158, 160, 0.411);
 }
