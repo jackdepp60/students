@@ -289,6 +289,7 @@ label[for="batch"] {
 }
 
 .modal-content {
+  margin: 10px auto;
   background: white;
   padding: 25px;
   border-radius: 8px;
